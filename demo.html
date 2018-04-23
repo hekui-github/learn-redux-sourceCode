@@ -4,16 +4,48 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>redux 0.0.1</title>
+	<title>redux 0.0.2</title>
 	<script src="redux.js" type="text/javascript" charset="utf-8"></script>
 	<script>
-		console.log(Redux === window.Redux)
+		/*
+			功能：
+			1. state是要管理的对象，为了state可管理，不允许直接修改state的值
+			2. state的初始值为reducer中default的值，写成参数默认值也是可以的
+			3. 每次需要修改state的值，通过调用dispatch(action)来实现，然后通过getState来获取state的值
+			
+			可以理解为：
+			1. store为一个控制器,所有信息都由用户提供，store只负责组装
+			2. 修改一个状态本质上是执行reducer函数，参数为当前状态state和对应的action
 
-		//在这里直接可以使用Redux变量
-		Redux.createStore();
+		*/
 
-		Redux.compose();
+		var rdxLog = Redux.rdxLog;
 
+		var inc = {type:'inc'};
+		var dec = {type:'dec'};
+
+		function reducer(state, action) {
+			switch (action.type) {
+				case 'inc':
+					return {count: state.count + 1};
+				case 'inc':
+					return {count: state.count - 1};
+				default:
+					return {count: 0};
+			}
+		}
+		var store = Redux.createStore(reducer);
+
+		rdxLog(store.getState());
+
+		store.dispatch(inc)
+		rdxLog(store.getState());
+
+		store.dispatch(inc)
+		rdxLog(store.getState());
+
+		store.dispatch(dec)
+		rdxLog(store.getState());
 	</script>
 </head>
 
